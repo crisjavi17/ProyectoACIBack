@@ -1,6 +1,7 @@
 package com.sistema.examenes.services;
 
 import com.sistema.examenes.entity.Criterio;
+import com.sistema.examenes.projection.CriterioSubcriteriosProjection;
 
 import java.util.List;
 
@@ -18,4 +19,7 @@ public interface Criterio_Service extends GenericService<Criterio, Long> {
 
     // listarCriterioPorIndicador de repositorio
     public List<Criterio> listarCriterioPorIndicador(Long id_indicador);
+
+    //Lista de criterios para el flujo
+    public List<CriterioSubcriteriosProjection> obtenerDatosCriterios();
 }

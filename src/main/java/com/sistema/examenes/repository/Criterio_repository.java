@@ -1,6 +1,7 @@
 package com.sistema.examenes.repository;
 
 import com.sistema.examenes.entity.Criterio;
+import com.sistema.examenes.projection.CriterioSubcriteriosProjection;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -62,12 +63,17 @@ public interface Criterio_repository extends JpaRepository<Criterio, Long> {
                         "WHERE ai.modelo_id_modelo = (SELECT MAX(m.id_modelo) FROM modelo m)", nativeQuery = true)
         List<Criterio> obtenerCriteriosUltimoModelo();
 
-        // SELECT c.*
-        // FROM public.criterio c join public.subcriterio s ON s.id_criterio =
-        // c.id_criterio join public.indicador i ON i.subcriterio_id_subcriterio =
-        // s.id_subcriterio
-        // WHERE i.id_indicador=1;
         @Query(value = "SELECT c.* FROM public.criterio c join public.subcriterio s ON s.id_criterio = c.id_criterio join public.indicador i ON i.subcriterio_id_subcriterio = s.id_subcriterio WHERE i.id_indicador=:id_indicador", nativeQuery = true)
         List<Criterio> listarCriterioPorIndicador(Long id_indicador);
+
+        //
+        @Query(value = "SELECT c.id_criterio, c.nombre, c.descripcion, c.visible, COUNT(s) AS cantidadSubcriterios " +
+                "FROM criterio c " +
+                "LEFT JOIN subcriterio s " +
+                "ON c.id_criterio = s.id_criterio "+
+                "where c.visible =true "+
+                "GROUP BY c.id_criterio", nativeQuery = true)
+        List<CriterioSubcriteriosProjection> obtenerCriteriosConCantidadSubcriterios();
+
 
 }
