@@ -1,6 +1,8 @@
 package com.sistema.examenes.controller;
 
 import com.sistema.examenes.entity.Indicador;
+import com.sistema.examenes.projection.IndicadorEvidenciasProjection;
+import com.sistema.examenes.projection.SubcriterioIndicadoresProjection;
 import com.sistema.examenes.services.Indicador_Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -133,9 +135,13 @@ public class Indicadores_Controller {
     public ResponseEntity<List<Indicador>> indicadoresPorCriterios(
             @RequestParam("idCriterios") List<Long> idCriterios) {
         try {
-        return new ResponseEntity<>(Service.indicadoresPorCriterios(idCriterios), HttpStatus.OK);
-    } catch (Exception e) {
-        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(Service.indicadoresPorCriterios(idCriterios), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    @GetMapping("/datosIndicadores/{id_subcriterio}")
+    public List<IndicadorEvidenciasProjection> obtenerDatosSubcriterios(@PathVariable("id_subcriterio") Long id_subcriterio) {
+        return Service.obtenerDatosIndicadores(id_subcriterio);
     }
 }
-    }
