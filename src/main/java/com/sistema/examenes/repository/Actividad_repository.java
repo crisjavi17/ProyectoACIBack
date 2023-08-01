@@ -43,7 +43,37 @@ public interface Actividad_repository extends JpaRepository<Actividad, Long> {
 "AND ag.modelo_id_modelo = (SELECT MAX(id_modelo) FROM modelo)", nativeQuery = true)
     List<Actividad> listarEvideRechazadasFecha();
     
+@Query(value = "SELECT * FROM actividad ac JOIN evidencia ev ON ac.id_evidencia=ev.id_evidencia\n" +
+        "JOIN indicador i ON i.id_indicador = ev.indicador_id_indicador\n" +
+        "JOIN ponderacion po ON po.indicador_id_indicador=i.id_indicador\n" +
+        "JOIN modelo mo ON mo.id_modelo=po.modelo_id_modelo WHERE\n" +
+        "mo.id_modelo=(SELECT MAX(id_modelo) FROM modelo) AND ac.estado != 'Aprobada'\n" +
+        "AND ac.visible=true;", nativeQuery = true)
+List<Actividad> actividadRechazada();
 
+    @Query(value = "SELECT * FROM actividad ac JOIN evidencia ev ON ac.id_evidencia=ev.id_evidencia\n" +
+            "JOIN indicador i ON i.id_indicador = ev.indicador_id_indicador\n" +
+            "JOIN ponderacion po ON po.indicador_id_indicador=i.id_indicador\n" +
+            "JOIN modelo mo ON mo.id_modelo=po.modelo_id_modelo WHERE\n" +
+            "mo.id_modelo=(SELECT MAX(id_modelo) FROM modelo)\n" +
+            "AND ac.visible=true;", nativeQuery = true)
+    List<Actividad> actividadCont();
+
+    @Query(value = "SELECT * FROM actividad ac JOIN evidencia ev ON ac.id_evidencia=ev.id_evidencia\n" +
+            "JOIN indicador i ON i.id_indicador = ev.indicador_id_indicador\n" +
+            "JOIN ponderacion po ON po.indicador_id_indicador=i.id_indicador\n" +
+            "JOIN modelo mo ON mo.id_modelo=po.modelo_id_modelo WHERE\n" +
+            "mo.id_modelo=(SELECT MAX(id_modelo) FROM modelo)\n" +
+            "AND ac.visible=true AND ac.usuario_id=:id;", nativeQuery = true)
+    List<Actividad> actividadUsu(Long id);
+
+    @Query(value = "SELECT * FROM actividad ac JOIN evidencia ev ON ac.id_evidencia=ev.id_evidencia\n" +
+            "JOIN indicador i ON i.id_indicador = ev.indicador_id_indicador\n" +
+            "JOIN ponderacion po ON po.indicador_id_indicador=i.id_indicador\n" +
+            "JOIN modelo mo ON mo.id_modelo=po.modelo_id_modelo WHERE\n" +
+            "mo.id_modelo=(SELECT MAX(id_modelo) FROM modelo) AND ac.estado = 'Aprobada'\n" +
+            "AND ac.visible=true;", nativeQuery = true)
+    List<Actividad> actividadAprobada();
     @Query(value = "select * from  actividad ac JOIN usuarios u ON ac.usuario_id = u.id where u.username=:username and ac.visible =true",nativeQuery = true)
     List<Actividad>listarporusuario(String username);
     List<Actividad> findByNombreContainingIgnoreCase(String nombre);

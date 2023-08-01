@@ -30,6 +30,16 @@ public class Actividad_ServiceImpl extends GenericServiceImpl<Actividad, Long> i
     }
 
     @Override
+    public List<Actividad> actividadAtrasada() {
+        return  repository.actividadRechazada();
+    }
+
+    @Override
+    public List<Actividad> actividadApr() {
+        return repository.actividadAprobada();
+    }
+
+    @Override
 
     public List<Actividad> listaAtrasada() {
         return repository.listarActividadAtrasadas();
@@ -54,5 +64,15 @@ public class Actividad_ServiceImpl extends GenericServiceImpl<Actividad, Long> i
     public List<Actividad> listaEvidAtrasada() {
         return repository.listarEvideRechazadasFecha();
     }
-    
+
+    @Override
+    public List<Actividad> actividadUsu(Long id) {
+        return repository.actividadUsu(id);
+    }
+
+    @Override
+    public List<Actividad> actividadCont() {
+        return repository.actividadCont();
+    }
+
 }

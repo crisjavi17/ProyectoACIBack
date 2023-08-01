@@ -56,8 +56,24 @@ public class Actividad_Controller {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @GetMapping("/actividadatrasa")
+    public ResponseEntity<List<Actividad>> actividadAtra() {
 
-    
+        try {
+            return new ResponseEntity<>(Service.actividadAtrasada(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    @GetMapping("/actividadaprobada")
+    public ResponseEntity<List<Actividad>> actividadApro() {
+
+        try {
+            return new ResponseEntity<>(Service.actividadApr(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
     @GetMapping("/listarCumpli")
     public ResponseEntity<List<Actividad>> obtenerListaCump() {
         try {
@@ -77,7 +93,24 @@ public class Actividad_Controller {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @GetMapping("/listaractiv")
+    public ResponseEntity<List<Actividad>> obtactiv() {
+        try {
+            return new ResponseEntity<>(Service.actividadCont(), HttpStatus.OK);
+        } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage().toString());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
+    @GetMapping("/buscaractiv/{id}")
+    public ResponseEntity<List<Actividad>> getByACId(@PathVariable("id") Long id) {
+        try {
+            return new ResponseEntity<>(Service.actividadUsu(id), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 //    @GetMapping("/buscar/")
 //    public ResponseEntity<List<?>> buscar(@RequestParam("nombre") String nombre) {
 //        try {
