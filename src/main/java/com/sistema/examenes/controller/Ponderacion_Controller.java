@@ -3,7 +3,12 @@ package com.sistema.examenes.controller;
 import com.sistema.examenes.entity.Encabezado_Evaluar;
 import com.sistema.examenes.entity.Ponderacion;
 import com.sistema.examenes.services.Ponderacion_Service;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = { "*" })
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/ponderacion")
 public class Ponderacion_Controller {
@@ -28,25 +33,22 @@ public class Ponderacion_Controller {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    
- 
 
-@PostMapping("/crearLista")
-public ResponseEntity<List<Ponderacion>> crear(@RequestBody List<Ponderacion> ponderaciones) {
-    try {
-        List<Ponderacion> resultados = new ArrayList<>();
+    @PostMapping("/crearLista")
+    public ResponseEntity<List<Ponderacion>> crear(@RequestBody List<Ponderacion> ponderaciones) {
+        try {
+            List<Ponderacion> resultados = new ArrayList<>();
 
-        for (Ponderacion ponderacion : ponderaciones) {
-            ponderacion.setVisible(true);
-            resultados.add(Service.save(ponderacion));
+            for (Ponderacion ponderacion : ponderaciones) {
+                ponderacion.setVisible(true);
+                resultados.add(Service.save(ponderacion));
+            }
+
+            return new ResponseEntity<>(resultados, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
-        return new ResponseEntity<>(resultados, HttpStatus.CREATED);
-    } catch (Exception e) {
-        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
-}
-
 
     @GetMapping("/listar")
     public ResponseEntity<List<Ponderacion>> obtenerLista() {
@@ -56,6 +58,7 @@ public ResponseEntity<List<Ponderacion>> crear(@RequestBody List<Ponderacion> po
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
     @GetMapping("/listarv")
     public ResponseEntity<List<Ponderacion>> obtenerListav() {
         try {
@@ -64,6 +67,7 @@ public ResponseEntity<List<Ponderacion>> crear(@RequestBody List<Ponderacion> po
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
     @GetMapping("/buscar/{id}")
     public ResponseEntity<Ponderacion> getById(@PathVariable("id") Long id) {
         try {
@@ -72,10 +76,12 @@ public ResponseEntity<List<Ponderacion>> crear(@RequestBody List<Ponderacion> po
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
     @DeleteMapping("/eliminar/{id}")
     public ResponseEntity<?> eliminar(@PathVariable Long id, @RequestBody Ponderacion ponderacion) {
         return Service.delete(id);
     }
+
     @PutMapping("/eliminarlogic/{id}")
     public ResponseEntity<?> eliminarlogic(@PathVariable Long id) {
         Ponderacion a = Service.findById(id);
@@ -91,6 +97,7 @@ public ResponseEntity<List<Ponderacion>> crear(@RequestBody List<Ponderacion> po
 
         }
     }
+
     @PutMapping("/actualizar/{id}")
     public ResponseEntity<Ponderacion> actualizar(@PathVariable Long id, @RequestBody Ponderacion p) {
         Ponderacion a = Service.findById(id);
@@ -105,4 +112,23 @@ public ResponseEntity<List<Ponderacion>> crear(@RequestBody List<Ponderacion> po
 
         }
     }
+
+    @GetMapping("/listarPonderacionPorModelo/{id_modelo}")
+    public ResponseEntity<List<Date>> listarPonderacionPorModelo(@PathVariable("id_modelo") Long id_modelo) {
+        List<Date> ponderaciones = Service.listarPonderacionPorModelo(id_modelo);
+        return new ResponseEntity<>(ponderaciones, HttpStatus.OK);
+    }
+
+    @GetMapping("/listarPonderacionPorFecha/{fecha}")
+    public ResponseEntity<List<Ponderacion>> listarPonderacionPorFecha(@PathVariable("fecha") String fecha) {
+        List<Ponderacion> ponderaciones = Service.listarPonderacionPorFecha(fecha);
+        return new ResponseEntity<>(ponderaciones, HttpStatus.OK);
+    }
+
+    @GetMapping("/listarPorFecha/{fecha}")
+    public ResponseEntity<List<Ponderacion>> listarPorFecha(@PathVariable("fecha") String fecha) {
+        List<Ponderacion> ponderaciones = Service.listarPorFecha(fecha);
+        return new ResponseEntity<>(ponderaciones, HttpStatus.OK);
+    }
+
 }

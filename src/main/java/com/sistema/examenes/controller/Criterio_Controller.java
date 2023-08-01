@@ -1,6 +1,7 @@
 package com.sistema.examenes.controller;
 
 import com.sistema.examenes.entity.Criterio;
+import com.sistema.examenes.projection.CriterioSubcriteriosProjection;
 import com.sistema.examenes.services.Criterio_Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -122,5 +123,10 @@ public class Criterio_Controller {
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @GetMapping("/datosCriterios")
+    public List<CriterioSubcriteriosProjection> obtenerDatosCriterios() {
+        return Service.obtenerDatosCriterios();
     }
 }

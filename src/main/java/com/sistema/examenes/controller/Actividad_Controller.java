@@ -180,7 +180,17 @@ public class Actividad_Controller {
         current.setDescripcion(t.getDescripcion());
         current.setFecha_inicio(t.getFecha_inicio());
         current.setFecha_fin(t.getFecha_fin());
+        current.setEstado(t.getEstado());
         return new ResponseEntity<>(Service.save(current), HttpStatus.OK);
+    }
+    
+    @GetMapping("/buscarByUsuario/{id}")
+    public ResponseEntity <List<Actividad>> listarByUsuario(@PathVariable("id") Long id) {
+        try {
+            return new ResponseEntity<>(Service.listaActByUsuario(id), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     /*@PutMapping("/actualizar/{id}")

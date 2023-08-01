@@ -75,4 +75,8 @@ public class Actividad_ServiceImpl extends GenericServiceImpl<Actividad, Long> i
         return repository.actividadCont();
     }
 
+    public List<Actividad> listaActByUsuario(Long id) {
+        return repository.listarByUsuario(id);
+    }
+    
 }

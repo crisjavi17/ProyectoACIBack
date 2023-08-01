@@ -22,7 +22,7 @@ public interface Observacion_repository extends JpaRepository<Observacion, Long>
     @Query(value = "DELETE FROM observacion WHERE id_observacion=:id", nativeQuery = true)
     void borrar(Long id);
     
-    @Query(value = "SELECT * FROM observacion WHERE actividad_id_actividad=:idact",nativeQuery = true)
+    @Query(value = "SELECT * FROM observacion WHERE actividad_id_actividad=:idact AND visible=true",nativeQuery = true)
     List<Observacion> observacionActividad(Long idact);
     
 }

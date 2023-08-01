@@ -24,6 +24,8 @@ public class Actividad implements Serializable {
     private String descripcion;
     @Column(name = "nombre")
     private String nombre;
+    @Column(name = "estado")
+    private String estado;
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "fecha_inicio")

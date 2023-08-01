@@ -1,6 +1,5 @@
 package com.sistema.examenes.controller;
 
-import com.sistema.examenes.entity.Encabezado_Evaluar;
 import com.sistema.examenes.entity.Modelo;
 import com.sistema.examenes.services.Modelo_Service;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = { "*" })
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/modelo")
 public class Modelo_Controller {
@@ -92,11 +91,11 @@ public class Modelo_Controller {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
             try {
+                a.setFecha_final_act(p.getFecha_final_act());
                 return new ResponseEntity<>(Service.save(a), HttpStatus.CREATED);
             } catch (Exception e) {
                 return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
-
         }
     }
 
