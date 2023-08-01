@@ -2,6 +2,7 @@ package com.sistema.examenes.controller;
 
 import com.sistema.examenes.entity.Actividad;
 import com.sistema.examenes.entity.Criterio;
+import com.sistema.examenes.projection.ActividadesProjection;
 import com.sistema.examenes.services.Actividad_Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -94,7 +95,7 @@ public class Actividad_Controller {
         }
     }
     @GetMapping("/listaractiv")
-    public ResponseEntity<List<Actividad>> obtactiv() {
+    public ResponseEntity<List<ActividadesProjection>> obtactiv() {
         try {
             return new ResponseEntity<>(Service.actividadCont(), HttpStatus.OK);
         } catch (Exception e) {

@@ -2,6 +2,7 @@ package com.sistema.examenes.repository;
 
 import com.sistema.examenes.entity.Actividad;
 import com.sistema.examenes.entity.Criterio;
+import com.sistema.examenes.projection.ActividadesProjection;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -54,13 +55,17 @@ public interface Actividad_repository extends JpaRepository<Actividad, Long> {
         "AND ac.visible=true;", nativeQuery = true)
 List<Actividad> actividadRechazada();
 
-    @Query(value = "SELECT * FROM actividad ac JOIN evidencia ev ON ac.id_evidencia=ev.id_evidencia\n" +
+    @Query(value = "SELECT per.primer_nombre || ' ' || per.primer_apellido as nombres, COUNT(ac.id_actividad) as total, ROUND(SUM(CASE WHEN ac.estado = 'Aprobada' THEN 1 ELSE 0 END) * 100.0 / COUNT(ac.id_actividad), 2) as avance\n" +
+            "FROM actividad ac JOIN evidencia ev ON ac.id_evidencia = ev.id_evidencia\n" +
             "JOIN indicador i ON i.id_indicador = ev.indicador_id_indicador\n" +
-            "JOIN ponderacion po ON po.indicador_id_indicador=i.id_indicador\n" +
-            "JOIN modelo mo ON mo.id_modelo=po.modelo_id_modelo WHERE\n" +
-            "mo.id_modelo=(SELECT MAX(id_modelo) FROM modelo)\n" +
-            "AND ac.visible=true;", nativeQuery = true)
-    List<Actividad> actividadCont();
+            "JOIN ponderacion po ON po.indicador_id_indicador = i.id_indicador\n" +
+            "JOIN modelo mo ON mo.id_modelo = po.modelo_id_modelo\n" +
+            "JOIN usuarios u ON u.id = ac.usuario_id\n" +
+            "JOIN persona per ON u.persona_id_persona = per.id_persona \n" +
+            "WHERE mo.id_modelo = (SELECT MAX(id_modelo) FROM modelo)\n" +
+            "AND ac.visible = true \n" +
+            "GROUP BY per.primer_nombre, per.primer_apellido;", nativeQuery = true)
+    List<ActividadesProjection> actividadCont();
 
     @Query(value = "SELECT * FROM actividad ac JOIN evidencia ev ON ac.id_evidencia=ev.id_evidencia\n" +
             "JOIN indicador i ON i.id_indicador = ev.indicador_id_indicador\n" +
