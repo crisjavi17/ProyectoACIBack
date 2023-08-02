@@ -47,5 +47,7 @@ public class Indicador_ServiceImpl extends GenericServiceImpl<Indicador, Long> i
     public List<IndicadorEvidenciasProjection> obtenerDatosIndicadores(Long id_subcriterio){
         return repository.obtenerIndicadoresConCantidadEvidencia(id_subcriterio);
     };
-
+    public List<IndicadorEvidenciasProjection> obtenerDatosIndicadoresFull(){
+        return repository.obtenerIndicadoresConCantidadEvidenciaFull();
+    };
 }

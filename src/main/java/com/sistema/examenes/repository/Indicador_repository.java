@@ -53,6 +53,16 @@ public interface Indicador_repository extends JpaRepository<Indicador, Long> {
             "ON i.id_indicador = e.indicador_id_indicador "+
             "WHERE i.visible = true AND i.subcriterio_id_subcriterio = :id_subcriterio " +
             "GROUP BY i.id_indicador", nativeQuery = true)
-
     List<IndicadorEvidenciasProjection> obtenerIndicadoresConCantidadEvidencia(Long id_subcriterio);
+    @Query(value = "SELECT i.id_indicador,i.nombre, i.descripcion, i.peso, i.estandar, i.tipo ," +
+            "i.valor_obtenido,i.porc_obtenido,i.porc_utilida_obtenida, i.visible, " +
+            "(SELECT COUNT(e2.id_evidencia) " +
+            "FROM evidencia e2 WHERE e2.indicador_id_indicador = i.id_indicador AND e2.visible = true) " +
+            "AS cantidadEvidencia " +
+            "FROM indicador i " +
+            "LEFT JOIN evidencia e " +
+            "ON i.id_indicador = e.indicador_id_indicador "+
+            "WHERE i.visible = true " +
+            "GROUP BY i.id_indicador", nativeQuery = true)
+    List<IndicadorEvidenciasProjection> obtenerIndicadoresConCantidadEvidenciaFull();
 }
