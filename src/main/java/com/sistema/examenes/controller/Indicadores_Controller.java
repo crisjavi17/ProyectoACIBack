@@ -153,4 +153,9 @@ public class Indicadores_Controller {
     public List<IndicadorEvidenciasProjection> obtenerDatosSubcriterios(@PathVariable("id_subcriterio") Long id_subcriterio) {
         return Service.obtenerDatosIndicadores(id_subcriterio);
     }
+
+    @GetMapping("/datosIndicadoresFull")
+    public List<IndicadorEvidenciasProjection> obtenerDatosSubcriteriosFull() {
+        return Service.obtenerDatosIndicadoresFull();
+    }
 }
