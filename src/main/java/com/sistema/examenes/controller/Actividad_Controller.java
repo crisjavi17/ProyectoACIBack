@@ -2,6 +2,7 @@ package com.sistema.examenes.controller;
 
 import com.sistema.examenes.entity.Actividad;
 import com.sistema.examenes.entity.Criterio;
+import com.sistema.examenes.projection.ActivAprobadaProjection;
 import com.sistema.examenes.projection.ActividadesProjection;
 import com.sistema.examenes.services.Actividad_Service;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,7 +59,7 @@ public class Actividad_Controller {
         }
     }
     @GetMapping("/actividadatrasa")
-    public ResponseEntity<List<Actividad>> actividadAtra() {
+    public ResponseEntity<List<ActivAprobadaProjection>> actividadAtra() {
 
         try {
             return new ResponseEntity<>(Service.actividadAtrasada(), HttpStatus.OK);
@@ -67,7 +68,7 @@ public class Actividad_Controller {
         }
     }
     @GetMapping("/actividadaprobada")
-    public ResponseEntity<List<Actividad>> actividadApro() {
+    public ResponseEntity<List<ActivAprobadaProjection>> actividadApro() {
 
         try {
             return new ResponseEntity<>(Service.actividadApr(), HttpStatus.OK);

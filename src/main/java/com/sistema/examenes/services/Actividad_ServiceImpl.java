@@ -2,6 +2,7 @@ package com.sistema.examenes.services;
 
 import com.sistema.examenes.entity.Actividad;
 import com.sistema.examenes.entity.Actividad;
+import com.sistema.examenes.projection.ActivAprobadaProjection;
 import com.sistema.examenes.projection.ActividadesProjection;
 import com.sistema.examenes.repository.Actividad_repository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,12 +32,12 @@ public class Actividad_ServiceImpl extends GenericServiceImpl<Actividad, Long> i
     }
 
     @Override
-    public List<Actividad> actividadAtrasada() {
+    public List<ActivAprobadaProjection> actividadAtrasada() {
         return  repository.actividadRechazada();
     }
 
     @Override
-    public List<Actividad> actividadApr() {
+    public List<ActivAprobadaProjection> actividadApr() {
         return repository.actividadAprobada();
     }
 

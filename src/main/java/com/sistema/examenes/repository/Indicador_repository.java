@@ -3,6 +3,7 @@ package com.sistema.examenes.repository;
 import java.util.List;
 
 import com.sistema.examenes.projection.IndicadorEvidenciasProjection;
+import com.sistema.examenes.projection.IndicadoresProjection;
 import com.sistema.examenes.projection.SubcriterioIndicadoresProjection;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -21,6 +22,13 @@ public interface Indicador_repository extends JpaRepository<Indicador, Long> {
             +
             "WHERE c.id_criterio = :criterio GROUP BY i.id_indicador,s.id_subcriterio, c.id_criterio, c.nombre ORDER BY i.id_indicador", nativeQuery = true)
     public List<Indicador> obtenerIndicadores(Long criterio);
+
+    @Query(value = "SELECT cri.nombre as nombre, SUM(i.porc_utilida_obtenida) as total\n" +
+            "FROM indicador i JOIN subcriterio s ON s.id_subcriterio = i.subcriterio_id_subcriterio\n" +
+            "JOIN criterio cri ON cri.id_criterio = s.id_criterio JOIN ponderacion po ON po.indicador_id_indicador=i.id_indicador\n" +
+            "JOIN modelo mo ON po.modelo_id_modelo=mo.id_modelo\n" +
+            "WHERE mo.id_modelo=(SELECT MAX(id_modelo) FROM modelo) AND i.visible=true GROUP BY cri.nombre", nativeQuery = true)
+    public List<IndicadoresProjection> Indicadores();
 
     // SELECT
     // i.*
