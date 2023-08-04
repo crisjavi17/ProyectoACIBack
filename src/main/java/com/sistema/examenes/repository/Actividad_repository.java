@@ -1,7 +1,6 @@
 package com.sistema.examenes.repository;
 
 import com.sistema.examenes.entity.Actividad;
-import com.sistema.examenes.entity.Criterio;
 import com.sistema.examenes.projection.ActivAprobadaProjection;
 import com.sistema.examenes.projection.ActividadesProjection;
 import org.springframework.data.jpa.repository.JpaRepository;

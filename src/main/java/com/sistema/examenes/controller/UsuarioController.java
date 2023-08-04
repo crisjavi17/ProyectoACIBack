@@ -1,6 +1,7 @@
 package com.sistema.examenes.controller;
 
 import com.sistema.examenes.entity.*;
+import com.sistema.examenes.projection.ResponsableProjection;
 import com.sistema.examenes.repository.UsuarioRepository;
 import com.sistema.examenes.services.RolService;
 import com.sistema.examenes.services.UsuarioRolService;
@@ -137,7 +138,14 @@ public class UsuarioController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
+    @GetMapping("/responsables")
+    public ResponseEntity<List<ResponsableProjection>> Responsables() {
+        try {
+            return new ResponseEntity<>(uR.responsables(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
     @GetMapping("/buscar/{username}")
     public Usuario obtenerUsuario(@PathVariable("username") String username) {
         return usuarioService.obtenerUsuario(username);
