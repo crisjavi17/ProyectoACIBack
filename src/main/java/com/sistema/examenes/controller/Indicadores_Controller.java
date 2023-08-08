@@ -2,6 +2,7 @@ package com.sistema.examenes.controller;
 
 import com.sistema.examenes.entity.Indicador;
 import com.sistema.examenes.projection.IndicadorEvidenciasProjection;
+import com.sistema.examenes.projection.IndicadorEvidenciasProjectionFull;
 import com.sistema.examenes.projection.IndicadoresProjection;
 import com.sistema.examenes.projection.SubcriterioIndicadoresProjection;
 import com.sistema.examenes.services.Indicador_Service;
@@ -155,7 +156,7 @@ public class Indicadores_Controller {
     }
 
     @GetMapping("/datosIndicadoresFull")
-    public List<IndicadorEvidenciasProjection> obtenerDatosSubcriteriosFull() {
+    public List<IndicadorEvidenciasProjectionFull> obtenerDatosSubcriteriosFull() {
         return Service.obtenerDatosIndicadoresFull();
     }
 }
