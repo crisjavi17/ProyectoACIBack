@@ -2,6 +2,7 @@ package com.sistema.examenes.services;
 
 import com.sistema.examenes.entity.Indicador;
 import com.sistema.examenes.projection.IndicadorEvidenciasProjection;
+import com.sistema.examenes.projection.IndicadorEvidenciasProjectionFull;
 import com.sistema.examenes.projection.IndicadoresProjection;
 import com.sistema.examenes.projection.SubcriterioIndicadoresProjection;
 
@@ -18,6 +19,7 @@ public interface Indicador_Service extends GenericService<Indicador, Long> {
 
     List<Indicador> indicadoresPorCriterios(List<Long> id_criterio);
     public List<IndicadorEvidenciasProjection> obtenerDatosIndicadores(Long id_subcriterio);
-    public List<IndicadorEvidenciasProjection> obtenerDatosIndicadoresFull();
+    public List<IndicadorEvidenciasProjectionFull> obtenerDatosIndicadoresFull();
+
 
 }
