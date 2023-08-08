@@ -3,6 +3,7 @@ package com.sistema.examenes.controller;
 import com.sistema.examenes.entity.Indicador;
 import com.sistema.examenes.projection.IndicadorEvidenciasProjection;
 import com.sistema.examenes.projection.IndicadorEvidenciasProjectionFull;
+import com.sistema.examenes.projection.IndicadoresProjection;
 import com.sistema.examenes.projection.SubcriterioIndicadoresProjection;
 import com.sistema.examenes.services.Indicador_Service;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,14 @@ public class Indicadores_Controller {
         }
     }
 
+    @GetMapping("/listarindi")
+    public ResponseEntity<List<IndicadoresProjection>> listaIndi() {
+        try {
+            return new ResponseEntity<>(Service.indicadores(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
     @GetMapping("/buscarindicador/{id}")
     public ResponseEntity<List<Indicador>> obtenerCriterios(@PathVariable("id") Long id) {
         try {
