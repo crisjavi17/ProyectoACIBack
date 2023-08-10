@@ -2,6 +2,7 @@ package com.sistema.examenes.repository;
 
 import com.sistema.examenes.entity.Criterio;
 import com.sistema.examenes.entity.Ponderacion;
+import com.sistema.examenes.projection.PonderacionProjection;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -17,8 +18,10 @@ public interface Ponderacion_repository extends JpaRepository<Ponderacion, Long>
     // FROM public.ponderacion p join public.modelo m ON m.id_modelo =
     // p.modelo_id_modelo
     // WHERE m.id_modelo=1;
-    @Query(value = "SELECT DISTINCT p.fecha FROM ponderacion p JOIN modelo m ON m.id_modelo = p.modelo_id_modelo WHERE m.id_modelo = :id_modelo", nativeQuery = true)
-    List<Date> listarPonderacionPorModelo(Long id_modelo);
+    @Query(value = "SELECT p.contador, p.fecha as fechapo FROM ponderacion p JOIN modelo m ON m.id_modelo = p.modelo_id_modelo WHERE m.id_modelo =:id_modelo GROUP BY p.contador, p.fecha ORDER BY p.contador", nativeQuery = true)
+    List<Ponderacion> listarPonderacionPorModelo(Long id_modelo);
+    @Query(value = "SELECT p.contador, p.fecha as fechapo FROM ponderacion p JOIN modelo m ON m.id_modelo = p.modelo_id_modelo WHERE m.id_modelo =:id_modelo GROUP BY p.contador, p.fecha ORDER BY p.contador", nativeQuery = true)
+    List<PonderacionProjection> listarPonderacionModelo(Long id_modelo);
 
     // SELECT p.*
     // FROM public.ponderacion p
@@ -47,8 +50,8 @@ public interface Ponderacion_repository extends JpaRepository<Ponderacion, Long>
     // HH:MI:SS.MS')", nativeQuery = true)
     // List<Ponderacion> listarPonderacionPorFecha(Date fecha);
 
-    @Query(value = "SELECT p.* FROM ponderacion p JOIN modelo m ON m.id_modelo = p.modelo_id_modelo WHERE p.fecha = TO_DATE(:fecha, 'YYYY-MM-DD')", nativeQuery = true)
-    List<Ponderacion> listarPonderacionPorFecha(@Param("fecha") String fecha);
+    @Query(value = "SELECT p.* FROM ponderacion p JOIN modelo m ON m.id_modelo = p.modelo_id_modelo WHERE p.fecha = TO_DATE(:fecha, 'YYYY-MM-DD') AND p.contador=:contador;", nativeQuery = true)
+    List<Ponderacion> listarPonderacionPorFecha(String fecha, Long contador);
 
     // SELECT id_ponderacion, fecha, peso, porc_obtenido, porc_utilida_obtenida,
     // valor_obtenido, visible, indicador_id_indicador, modelo_id_modelo
@@ -64,4 +67,6 @@ public interface Ponderacion_repository extends JpaRepository<Ponderacion, Long>
 
     @Query(value = "SELECT p.* FROM ponderacion p JOIN modelo m ON p.modelo_id_modelo = m.id_modelo WHERE m.id_modelo = :id_modelo", nativeQuery = true)
     List<Ponderacion> listarPondeModelo(@Param("id_modelo") Long id_modelo);
+    @Query(value = "SELECT contador FROM ponderacion WHERE modelo_id_modelo = :id_modelo ORDER BY contador DESC LIMIT 1", nativeQuery = true)
+    List<PonderacionProjection> idmax(Long id_modelo);
 }
