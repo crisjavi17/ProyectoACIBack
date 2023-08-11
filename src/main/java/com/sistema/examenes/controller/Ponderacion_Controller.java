@@ -139,4 +139,9 @@ public class Ponderacion_Controller {
         return new ResponseEntity<>(ponderaciones, HttpStatus.OK);
     }
 
+    @DeleteMapping("/eliminarponderacion/{contador}/{fecha}")
+    public ResponseEntity<Void> eliminarPonderacion(@PathVariable Long contador,@PathVariable("fecha") String fecha) {
+        Service.eliminarPonderacion(contador,fecha);
+        return ResponseEntity.noContent().build();
+    }
 }

@@ -15,4 +15,5 @@ public interface Ponderacion_Service extends GenericService<Ponderacion, Long> {
 
     public List<Ponderacion> listarPorFecha(String fecha);
     public List<PonderacionProjection> idmax(Long id_modelo);
+    public void eliminarPonderacion(Long contador, String fecha);
 }

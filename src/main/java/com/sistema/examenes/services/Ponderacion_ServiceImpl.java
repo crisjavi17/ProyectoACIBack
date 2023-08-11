@@ -37,6 +37,11 @@ public class Ponderacion_ServiceImpl extends GenericServiceImpl<Ponderacion, Lon
     }
 
     @Override
+    public void eliminarPonderacion(Long contador,String fecha) {
+        repository.eliminarPonderacion(contador, fecha);
+    }
+
+    @Override
     public List<Ponderacion> listarPonderacionPorModelo(Long id_modelo) {
         return repository.listarPonderacionPorModelo(id_modelo);
     }
