@@ -9,7 +9,7 @@ public interface ModeloVistaProjection {
     Timestamp getFecha_fin();
     Timestamp  getFecha_final_act();
     Timestamp  getFecha_inicio();
-    Long getNro_Indicadores();
-    Long getNro_Subcriterios();
-    Long getNro_Criterios();
+    Long getNro_indicadores();
+    Long getNro_subcriterios();
+    Long getNro_criterios();
 }
