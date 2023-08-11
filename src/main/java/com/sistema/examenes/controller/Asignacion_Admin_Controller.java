@@ -1,6 +1,7 @@
 package com.sistema.examenes.controller;
 
 import com.sistema.examenes.entity.Asignacion_Admin;
+import com.sistema.examenes.projection.AsignacionProjection;
 import com.sistema.examenes.services.Asignacion_Admin_Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,14 @@ public class Asignacion_Admin_Controller {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
+    @GetMapping("/asignacionadmin/{id_modelo}/{veri}")
+    public ResponseEntity<List<AsignacionProjection>> asignacionadmin(@PathVariable("id_modelo") Long id_modelo,@PathVariable("veri") String veri) {
+        try {
+            return new ResponseEntity<>(Service.asignacionAdmin(id_modelo,veri), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
     @GetMapping("/listar")
     public ResponseEntity<List<Asignacion_Admin>> obtenerLista() {
         try {
