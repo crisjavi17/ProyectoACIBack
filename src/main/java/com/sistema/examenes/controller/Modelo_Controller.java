@@ -1,6 +1,8 @@
 package com.sistema.examenes.controller;
 
 import com.sistema.examenes.entity.Modelo;
+import com.sistema.examenes.projection.ModeloVistaProjection;
+import com.sistema.examenes.projection.SubcriterioIndicadoresProjectionFull;
 import com.sistema.examenes.services.Modelo_Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -106,5 +108,10 @@ public class Modelo_Controller {
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @GetMapping("/datosModelo")
+    public List<ModeloVistaProjection> obtenerDatosModelo() {
+        return Service.obtenerDatosModelo();
     }
 }
