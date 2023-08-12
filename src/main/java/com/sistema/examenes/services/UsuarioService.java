@@ -1,6 +1,7 @@
 package com.sistema.examenes.services;
 
 import com.sistema.examenes.entity.Usuario;
+import com.sistema.examenes.projection.ResponsableProjection;
 
 import java.util.List;
 
@@ -11,6 +12,6 @@ public interface UsuarioService extends GenericService<Usuario, Long> {
 
     public Usuario findAllByUsername(String username);
 
-    // public List<Usuario> listaAdminDatos(); de repository
+    public List<ResponsableProjection> responsables();
     public List<Usuario> listaAdminDatos();
 }

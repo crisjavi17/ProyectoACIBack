@@ -1,6 +1,7 @@
 package com.sistema.examenes.services;
 
 import com.sistema.examenes.entity.Usuario;
+import com.sistema.examenes.projection.ResponsableProjection;
 import com.sistema.examenes.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
@@ -26,6 +27,11 @@ public class UsuarioServiceImpl extends GenericServiceImpl<Usuario, Long> implem
     @Override
     public Usuario findAllByUsername(String username) {
         return usuarioRepository.findAllByUsername(username);
+    }
+
+    @Override
+    public List<ResponsableProjection> responsables() {
+        return usuarioRepository.responsables();
     }
 
 

@@ -4,12 +4,15 @@ import com.sistema.examenes.entity.Notificacion;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+
+import javax.transaction.Transactional;
 import java.util.List;
 
 public interface Notificacion_repository extends JpaRepository<Notificacion, Long> {
     @Query(value = "SELECT * FROM notificacion WHERE usuario=:user ORDER BY fecha DESC;",nativeQuery = true)
     List<Notificacion> listarUserNoti(Long user);
     @Modifying
+    @Transactional
     @Query(value = "DELETE FROM notificacion WHERE id=:id", nativeQuery = true)
     void borrar(Long id);
 

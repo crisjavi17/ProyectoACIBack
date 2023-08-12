@@ -1,6 +1,7 @@
 package com.sistema.examenes.services;
 
 import com.sistema.examenes.entity.Asignacion_Admin;
+import com.sistema.examenes.projection.AsignacionProjection;
 
 import java.util.List;
 
@@ -9,6 +10,7 @@ public interface Asignacion_Admin_Service extends GenericService<Asignacion_Admi
 
     public Asignacion_Admin listarAsignacion_AdminPorUsuario(Long id_usuario);
 
-    public Asignacion_Admin listarAsignacion_AdminPorUsuarioCriterio(Long id_criterio, Long id_usuario);
+    public Asignacion_Admin listarAsignacion_AdminPorUsuarioCriterio(Long id_criterio, Long id_usuario,Long id_modelo);
+    public List<AsignacionProjection> asignacionAdmin(Long id_modelo, String veri);
 
 }
