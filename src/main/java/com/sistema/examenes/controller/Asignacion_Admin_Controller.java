@@ -114,9 +114,10 @@ public class Asignacion_Admin_Controller {
 
     @GetMapping("/listarAsignacion_AdminPorUsuarioCriterio/{id_criterio}/{id_usuario}")
     public ResponseEntity<Asignacion_Admin> listarAsignacion_AdminPorUsuarioCriterio(
-            @PathVariable("id_criterio") Long id_criterio, @PathVariable("id_usuario") Long id_usuario) {
+            @PathVariable("id_criterio") Long id_criterio, @PathVariable("id_usuario") Long id_usuario
+            , @PathVariable("id_modelo") Long id_modelo) {
         try {
-            return new ResponseEntity<>(Service.listarAsignacion_AdminPorUsuarioCriterio(id_criterio, id_usuario),
+            return new ResponseEntity<>(Service.listarAsignacion_AdminPorUsuarioCriterio(id_criterio, id_usuario,id_modelo),
                     HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
