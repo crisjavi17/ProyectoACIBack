@@ -27,8 +27,8 @@ public class Asignacion_Admin_ServiceImpl extends GenericServiceImpl<Asignacion_
     }
 
     @Override
-    public Asignacion_Admin listarAsignacion_AdminPorUsuario(Long id_usuario) {
-        return repository.listarAsignacion_AdminPorUsuario(id_usuario);
+    public Asignacion_Admin listarAsignacion_AdminPorUsuario(Long id_usuario,Long id_modelo) {
+        return repository.listarAsignacion_AdminPorUsuario(id_usuario, id_modelo);
     }
 
     @Override
