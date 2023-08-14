@@ -77,12 +77,14 @@ public class Notificacion_Controller {
 
         }
     }
-    @Scheduled(cron = "0 0 9 * * ?")
+    @Scheduled(cron = "0 0 1 * * ?")
     public void eliminarNotificacionesAntiguas() {
         LocalDate hoy = LocalDate.now();
         LocalDate fechaLimite = hoy.minusDays(30);
         String fecha=String.valueOf(fechaLimite);
+
         List<Notificacion> notificacionesAntiguas = service.listarNotifi(fecha);
+        System.out.println("notificaciones traidas "+notificacionesAntiguas);
         for (Notificacion notificacion : notificacionesAntiguas) {
             service.eliminar(notificacion.getId());
         }
