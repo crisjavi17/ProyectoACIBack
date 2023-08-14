@@ -10,7 +10,8 @@ public interface Asignacion_Admin_Service extends GenericService<Asignacion_Admi
 
     public Asignacion_Admin listarAsignacion_AdminPorUsuario(Long id_usuario,Long id_modelo);
 
-    public Asignacion_Admin listarAsignacion_AdminPorUsuarioCriterio(Long id_criterio, Long id_usuario,Long id_modelo);
+    public Asignacion_Admin listarAsignacion_AdminPorUsuarioCriterio(Long id_criterio, Long id_modelo);
     public List<AsignacionProjection> asignacionAdmin(Long id_modelo, String veri);
+    public Asignacion_Admin asignacion_existente(Long id_criterio, Long id_modelo,Long id_usuario);
 
 }
