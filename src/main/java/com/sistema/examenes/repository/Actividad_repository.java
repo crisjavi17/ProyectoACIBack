@@ -2,6 +2,7 @@ package com.sistema.examenes.repository;
 
 import com.sistema.examenes.entity.Actividad;
 import com.sistema.examenes.projection.ActivAprobadaProjection;
+import com.sistema.examenes.projection.ActivProyection;
 import com.sistema.examenes.projection.ActividadesProjection;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -48,7 +49,7 @@ public interface Actividad_repository extends JpaRepository<Actividad, Long> {
     List<Actividad> listarEvideRechazadasFecha();
 
 
-    @Query(value = "  SELECT distinct u.id idpersona, per.primer_nombre,per.primer_apellido , COALESCE(per.correo, 'Sin correo') AS percorreo\n" +
+    @Query(value = "  SELECT distinct u.id  as idpersona, per.primer_nombre,per.primer_apellido , COALESCE(per.correo, 'Sin correo') AS percorreo\n" +
             "        FROM actividad ac\n" +
             "        JOIN evidencia e ON e.id_evidencia = ac.id_evidencia\n" +
             "        JOIN usuarios u ON u.id=ac.usuario_id\n" +
@@ -57,7 +58,7 @@ public interface Actividad_repository extends JpaRepository<Actividad, Long> {
             "        JOIN ponderacion po ON po.indicador_id_indicador = i.id_indicador\n" +
             "        JOIN modelo mo ON mo.id_modelo = po.modelo_id_modelo\n" +
             "        WHERE mo.id_modelo = (SELECT MAX(id_modelo) FROM modelo);\n",nativeQuery = true)
-    List<Actividad>listarByActividad();
+    List<ActivProyection>listarByActividad();
     
 @Query(value = "SELECT pe.primer_nombre||' '||pe.primer_apellido as encargado, ac.nombre as actividades, ac.fecha_inicio as inicio,\n" +
         "ac.fecha_fin as fin, ar.enlace\n" +
