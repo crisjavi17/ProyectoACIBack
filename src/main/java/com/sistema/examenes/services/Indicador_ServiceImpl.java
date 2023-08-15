@@ -2,6 +2,7 @@ package com.sistema.examenes.services;
 
 import com.sistema.examenes.entity.Indicador;
 import com.sistema.examenes.projection.IndicadorEvidenciasProjection;
+import com.sistema.examenes.projection.IndicadorEvidenciasProjectionFull;
 import com.sistema.examenes.projection.IndicadoresProjection;
 import com.sistema.examenes.repository.Indicador_repository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,10 +51,16 @@ public class Indicador_ServiceImpl extends GenericServiceImpl<Indicador, Long> i
     public List<Indicador> indicadoresPorCriterios(List<Long> id_criterio) {
         return repository.indicadoresPorCriterios(id_criterio);
     }
+    @Override
     public List<IndicadorEvidenciasProjection> obtenerDatosIndicadores(Long id_subcriterio){
         return repository.obtenerIndicadoresConCantidadEvidencia(id_subcriterio);
     };
-    public List<IndicadorEvidenciasProjection> obtenerDatosIndicadoresFull(){
+    @Override
+    public List<IndicadorEvidenciasProjectionFull> obtenerDatosIndicadoresFull(){
         return repository.obtenerIndicadoresConCantidadEvidenciaFull();
     };
+    @Override
+    public List<Indicador> indicadoresPorModelo(Long id_modelo) {
+        return repository.indicadoresPorModelo(id_modelo);
+    }
 }
