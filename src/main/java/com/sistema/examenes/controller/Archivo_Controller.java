@@ -144,6 +144,14 @@ public class Archivo_Controller {
 
         }
     }
+    
+    @GetMapping("recoverPdf/{idIndicador}")
+    public ResponseEntity<?> obtenerEnlaceArchivo(@PathVariable ("idIndicador") Long idIndicador) {
+        
+          //(long)39     
+       return new ResponseEntity<>(archivoservis.recoverPdf(idIndicador),HttpStatus.OK);        
+       
+    }
 
 }
 

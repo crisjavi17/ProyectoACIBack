@@ -33,6 +33,11 @@ public class Archivo_ServiceImpl extends GenericServiceImpl<Archivo_s, Long> imp
     public List<Archivo_s> listararchivoActividad(Long idActividad) {
         return repository.listararchivoActividad(idActividad);
     }
+    @Override
+    public  List<Archivo_s> recoverPdf(Long idIndicador) {
+   
+        return repository.findByidIndicador(idIndicador);
+    }
 
 
 }
